@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>武将占い</title>
+    <title>戦国武将メーカー</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
         #result-container { display: none; }
     </style>
 </head>
 <body>
-    <h1>武将占い</h1>
+    <h1>戦国武将メーカー</h1>
     <div id="question-container">
         <p id="question-text">質問1: あなたの戦い方は？</p>
-        <button onclick="nextQuestion(0)">力でねじ伏せる</button>
-        <button onclick="nextQuestion(1)">策略を巡らせる</button>
+        <button id="option1" onclick="nextQuestion(0)">力でねじ伏せる</button>
+        <button id="option2" onclick="nextQuestion(1)">策略を巡らせる</button>
     </div>
     <div id="result-container">
         <h2>あなたの武将は…</h2>
@@ -25,10 +25,10 @@
         let answerPath = "";
         let questionIndex = 0;
         const questions = [
-            "あなたの戦い方は？",
-            "どちらかといえば？",
-            "戦場での性格は？",
-            "大事にするものは？"
+            { text: "あなたの戦い方は？", options: ["力でねじ伏せる", "策略を巡らせる"] },
+            { text: "どちらかといえば？", options: ["個人の武勇", "組織の力"] },
+            { text: "戦場での性格は？", options: ["果敢に突撃", "慎重に動く"] },
+            { text: "大事にするものは？", options: ["名誉と誇り", "実利と結果"] }
         ];
         const results = {
             "0000": "織田信長\n「是非に及ばず」\n天下布武を掲げた革命児。",
@@ -53,7 +53,9 @@
             answerPath += choice;
             questionIndex++;
             if (questionIndex < 4) {
-                document.getElementById("question-text").textContent = questions[questionIndex];
+                document.getElementById("question-text").textContent = questions[questionIndex].text;
+                document.getElementById("option1").textContent = questions[questionIndex].options[0];
+                document.getElementById("option2").textContent = questions[questionIndex].options[1];
             } else {
                 showResult();
             }
@@ -70,7 +72,9 @@
             questionIndex = 0;
             document.getElementById("question-container").style.display = "block";
             document.getElementById("result-container").style.display = "none";
-            document.getElementById("question-text").textContent = questions[0];
+            document.getElementById("question-text").textContent = questions[0].text;
+            document.getElementById("option1").textContent = questions[0].options[0];
+            document.getElementById("option2").textContent = questions[0].options[1];
         }
     </script>
 </body>
