@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>武将占い</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        #result-container { display: none; }
+    </style>
+</head>
+<body>
+    <h1>武将占い</h1>
+    <div id="question-container">
+        <p id="question-text">質問1: あなたの戦い方は？</p>
+        <button onclick="nextQuestion(0)">力でねじ伏せる</button>
+        <button onclick="nextQuestion(1)">策略を巡らせる</button>
+    </div>
+    <div id="result-container">
+        <h2>あなたの武将は…</h2>
+        <p id="result-text"></p>
+        <button onclick="restart()">もう一度占う</button>
+    </div>
+    <script>
+        let answerPath = "";
+        let questionIndex = 0;
+        const questions = [
+            "あなたの戦い方は？",
+            "どちらかといえば？",
+            "戦場での性格は？",
+            "大事にするものは？"
+        ];
+        const results = {
+            "0000": "織田信長\n「是非に及ばず」\n天下布武を掲げた革命児。",
+            "0001": "豊臣秀吉\n「鳴かせてみせようホトトギス」\n成り上がった天才。",
+            "0010": "武田信玄\n「人は城、人は石垣」\n人材を重視した名将。",
+            "0011": "徳川家康\n「鳴くまで待とうホトトギス」\n耐え抜いて天下を取る。",
+            "0100": "上杉謙信\n「敵に塩を送る」\n義を貫いた戦国の龍。",
+            "0101": "毛利元就\n「三本の矢」\n団結を大切にした西国の智将。",
+            "0110": "黒田官兵衛\n「一夜城」\n戦略の天才軍師。",
+            "0111": "真田昌幸\n「表裏比興の者」\n知略で徳川を翻弄。",
+            "1000": "真田幸村\n「我こそは真田幸村！」\n戦国最後の武将。",
+            "1001": "本多忠勝\n「過ぎたるものが二つあり」\n無傷の猛将。",
+            "1010": "島津義弘\n「島津の退き口」\n鬼島津と呼ばれた猛者。",
+            "1011": "立花宗茂\n「義のためなら恐れぬ」\n生涯無敗の武将。",
+            "1100": "明智光秀\n「時は今」\n本能寺の変の謎を残した。",
+            "1101": "石田三成\n「三献の茶」\n忠義を尽くした理想家。",
+            "1110": "伊達政宗\n「生きることこそ最大の復讐」\n独眼竜のカリスマ。",
+            "1111": "長宗我部元親\n「姫若子」\n四国を統一した革新者。"
+        };
+        
+        function nextQuestion(choice) {
+            answerPath += choice;
+            questionIndex++;
+            if (questionIndex < 4) {
+                document.getElementById("question-text").textContent = questions[questionIndex];
+            } else {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            document.getElementById("question-container").style.display = "none";
+            document.getElementById("result-container").style.display = "block";
+            document.getElementById("result-text").textContent = results[answerPath];
+        }
+        
+        function restart() {
+            answerPath = "";
+            questionIndex = 0;
+            document.getElementById("question-container").style.display = "block";
+            document.getElementById("result-container").style.display = "none";
+            document.getElementById("question-text").textContent = questions[0];
+        }
+    </script>
+</body>
+</html>
